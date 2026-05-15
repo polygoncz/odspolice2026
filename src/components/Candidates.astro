@@ -1,0 +1,44 @@
+---
+import { CANDIDATES } from '../data/content';
+---
+<section id="kandidati" class="bg-ink text-paper py-24 border-b-2 border-ink relative overflow-hidden">
+  <div class="absolute" style="left:-60px;top:80px;width:260px;height:260px;background:#26A9AE;opacity:0.35"></div>
+  <div class="absolute" style="right:-40px;bottom:60px;width:180px;height:320px;background:#39D4D8;opacity:0.18"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10">
+    <!-- SectionHeader dark -->
+    <div class="max-w-[820px]">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="inline-block w-8 h-[3px] bg-primary"></span>
+        <span class="label text-[11px] text-primary">02 / TÝM</span>
+      </div>
+      <h2 class="h-display text-paper" style="font-size:clamp(40px, 6vw, 76px)">KANDIDÁTI</h2>
+      <p class="mt-5 text-[16px] leading-[1.55] text-paper/75 max-w-[640px]">[Pár vět o týmu — kdo jsme, odkud jsme, proč kandidujeme.]</p>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {CANDIDATES.map(c => (
+        <article class="bg-paper text-ink border-2 border-primary">
+          <div class="relative bg-ink overflow-hidden" style="aspect-ratio:3/4">
+            <img src={c.photo} alt={c.name} class="absolute inset-0 w-full h-full object-cover" style="filter:grayscale(0.1) contrast(1.05)" loading="lazy" />
+            <div class="absolute top-0 left-0 bg-primary text-ink px-3 py-2 border-r-2 border-b-2 border-ink z-10">
+              <div class="h-display text-[28px] leading-none">{String(c.n).padStart(2,'0')}</div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 bg-ink/90 text-paper px-4 py-3 border-t-2 border-primary z-10">
+              <div class="label text-[10px] text-primary">{c.role}</div>
+              <div class="h-display text-[18px] leading-tight mt-1 text-paper">{c.name}</div>
+            </div>
+          </div>
+          <div class="p-4 border-t-2 border-ink">
+            <p class="text-[13px] leading-[1.5] text-ink/80">{c.bio}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-6 border-t-2 border-primary pt-8">
+      <div class="label text-[11px] text-primary">CELÁ KANDIDÁTKA — 21 OSOBNOSTÍ</div>
+      <a href="#" class="btn-primary label text-[12px] px-6 py-3">Zobrazit celý tým →</a>
+    </div>
+  </div>
+</section>
