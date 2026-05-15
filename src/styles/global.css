@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  background: #FFFFFF;
+  color: #002D52;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Brutalist baseline — kill every rounded corner anywhere */
+*, *::before, *::after { border-radius: 0 !important; }
+
+/* …except deliberate circular stamps (graphic device, not UI chrome) */
+.stamp, .stamp::before, .stamp::after { border-radius: 9999px !important; }
+
+::selection { background: #39D4D8; color: #002D52; }
+
+.h-display {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+/* hairline grid backdrop used in hero */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(0,45,82,0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,45,82,0.10) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* rotating stamp spin */
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.stamp-spin { animation: spin-slow 24s linear infinite; }
+
+/* portrait placeholder */
+.portrait-ph {
+  background-color: #002D52;
+  background-image: repeating-linear-gradient(135deg, rgba(57,212,216,0.18) 0 14px, transparent 14px 28px);
+}
+
+/* news image placeholder */
+.news-ph {
+  background-color: #002D52;
+  background-image:
+    linear-gradient(135deg, #26A9AE 25%, transparent 25%) -20px 0,
+    linear-gradient(225deg, #26A9AE 25%, transparent 25%) -20px 0,
+    linear-gradient(315deg, #26A9AE 25%, transparent 25%),
+    linear-gradient(45deg,  #26A9AE 25%, transparent 25%);
+  background-size: 40px 40px;
+}
+
+/* nav underline on turquoise navbar */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 3px;
+  background: #002D52;
+  transform: scaleX(0); transform-origin: left; transition: transform .15s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); }
+.nav-link.is-active::after { transform: scaleX(1); }
+
+/* buttons */
+.btn-primary { background: #39D4D8; color: #002D52; transition: background .12s, color .12s; }
+.btn-primary:hover { background: #002D52; color: #39D4D8; }
+.btn-ghost { background: transparent; color: #002D52; border: 2px solid #002D52; transition: background .12s, color .12s; }
+.btn-ghost:hover { background: #002D52; color: #FFFFFF; }
+
+/* ticker animation */
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-track { display: flex; gap: 48px; white-space: nowrap; animation: ticker 40s linear infinite; }
