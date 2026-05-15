@@ -1,0 +1,62 @@
+---
+import { NEWS, EVENTS } from '../data/content';
+---
+<section id="aktuality" class="bg-paper border-b-2 border-ink py-24">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10">
+
+    <!-- News -->
+    <div class="lg:col-span-7">
+      <div class="max-w-[820px]">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="inline-block w-8 h-[3px] bg-primary"></span>
+          <span class="label text-[11px] text-secondary">04 / AKTUALITY</span>
+        </div>
+        <h2 class="h-display text-ink" style="font-size:clamp(40px, 6vw, 76px)">CO SE DĚJE</h2>
+      </div>
+      <div class="mt-10 border-t-2 border-ink">
+        {NEWS.map(n => (
+          <a href="#" class="block border-b-2 border-ink py-6 hover:bg-ink group transition-colors duration-100">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-4">
+                <span class="label text-[10px] text-secondary group-hover:text-primary">{n.tag}</span>
+                <span class="label text-[10px] text-ink/60 group-hover:text-primary/70">{n.date}</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-ink group-hover:text-primary"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3 class="h-display text-ink group-hover:text-primary text-[24px] md:text-[28px] leading-[1.05]">{n.t}</h3>
+          </a>
+        ))}
+      </div>
+      <a href="#" class="mt-6 inline-block label text-[11px] text-ink border-b-2 border-primary pb-1 hover:text-secondary">Všechny aktuality →</a>
+    </div>
+
+    <!-- Events -->
+    <div id="akce" class="lg:col-span-5">
+      <div class="max-w-[820px]">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="inline-block w-8 h-[3px] bg-primary"></span>
+          <span class="label text-[11px] text-secondary">05 / AKCE</span>
+        </div>
+        <h2 class="h-display text-ink" style="font-size:clamp(40px, 6vw, 76px)">POTKEJTE NÁS</h2>
+      </div>
+      <div class="mt-10 bg-primary text-ink border-2 border-ink">
+        {EVENTS.map((e, i) => (
+          <div class={`flex items-stretch ${i < EVENTS.length - 1 ? 'border-b-2 border-ink' : ''}`}>
+            <div class="bg-ink text-primary p-4 w-[88px] flex flex-col items-center justify-center border-r-2 border-ink">
+              <div class="h-display text-[34px] leading-none">{e.d}</div>
+              <div class="label text-[10px] mt-1">{e.m}</div>
+            </div>
+            <div class="flex-1 p-4 flex flex-col justify-center">
+              <div class="h-display text-ink text-[18px] leading-tight">{e.t}</div>
+              <div class="label text-[10px] text-secondary mt-2">{e.loc}</div>
+            </div>
+            <div class="w-12 flex items-center justify-center border-l-2 border-ink">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="text-ink"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

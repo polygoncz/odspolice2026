@@ -1,0 +1,28 @@
+---
+import { LEADER_PHOTO } from '../data/content';
+---
+<section class="bg-primary text-ink border-b-2 border-ink py-20 relative overflow-hidden">
+  <div class="absolute right-0 top-0 bottom-0 w-[35%] bg-ink hidden lg:block"></div>
+  <div class="absolute right-[35%] top-0 bottom-0 bg-secondary hidden lg:block" style="width:6px"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-8">
+      <div class="label text-[11px] text-ink/70 mb-6">CITACE LÍDRA</div>
+      <blockquote class="h-display text-ink" style="font-size:clamp(32px, 4.4vw, 56px)">
+        „[VÝRAZNÝ CITÁT LÍDRA<br/>NA DVA AŽ TŘI ŘÁDKY<br/>O TOM, CO CHCEME ZMĚNIT.]"
+      </blockquote>
+      <div class="mt-8 flex items-center gap-4">
+        <div class="w-12 h-[3px] bg-ink"></div>
+        <div>
+          <div class="h-display text-[16px] text-ink">[JMÉNO KANDIDÁTA]</div>
+          <div class="label text-[10px] text-ink/70 mt-1">LÍDR KANDIDÁTKY</div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:block lg:col-span-4 relative z-10">
+      <div class="bg-paper border-2 border-paper overflow-hidden" style="height:360px">
+        <img src={LEADER_PHOTO} alt="[Lídr kandidátky]" class="w-full h-full object-cover" style="filter:grayscale(0.15) contrast(1.05)" />
+      </div>
+    </div>
+  </div>
+</section>

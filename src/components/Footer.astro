@@ -1,0 +1,73 @@
+---
+import { NAV } from '../data/content';
+---
+<footer id="kontakt" class="bg-ink text-paper">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10 pt-20 pb-10">
+    <div class="grid lg:grid-cols-12 gap-10">
+
+      <!-- Brand -->
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 bg-primary relative">
+            <div class="absolute inset-[18%] bg-ink"></div>
+          </div>
+          <div class="h-display text-[26px] tracking-tighter">ODS POLICE 2026</div>
+        </div>
+        <p class="text-[14px] leading-[1.6] text-paper/75 max-w-[420px]">
+          [Krátký popis sdružení a kampaně. Dvě věty o tom, kdo jsme a o co usilujeme v komunálních volbách 2026.]
+        </p>
+        <div class="mt-8 grid grid-cols-2 max-w-[200px] border-2 border-primary">
+          {(['FB','IG'] as const).map((s, i) => (
+            <a href="#" class={`label text-[12px] py-3 text-center text-paper hover:bg-primary hover:text-ink ${i < 1 ? 'border-r-2 border-primary' : ''}`}>{s}</a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Nav + Docs -->
+      <div class="lg:col-span-3">
+        <div class="label text-[10px] text-primary mb-5">STRÁNKY</div>
+        <ul class="space-y-3 text-[14px]">
+          {NAV.map(n => <li><a href={`#${n.id}`} class="hover:text-primary">{n.label}</a></li>)}
+        </ul>
+        <div class="label text-[10px] text-primary mt-8 mb-5">DOKUMENTY</div>
+        <ul class="space-y-3 text-[14px]">
+          <li><a class="hover:text-primary" href="#">Program (PDF)</a></li>
+          <li><a class="hover:text-primary" href="#">Stanovy</a></li>
+          <li><a class="hover:text-primary" href="#">GDPR</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="lg:col-span-4">
+        <div class="label text-[10px] text-primary mb-5">KONTAKT</div>
+        <ul class="space-y-5 text-[14px]">
+          <li>
+            <div class="label text-[10px] text-paper/50">ADRESA</div>
+            <div class="mt-1 text-paper">[Náměstí 1, 549 54 Police]</div>
+          </li>
+          <li>
+            <div class="label text-[10px] text-paper/50">E-MAIL</div>
+            <a href="mailto:info@odspolice2026.cz" class="mt-1 text-paper hover:text-primary block">[info@odspolice2026.cz]</a>
+          </li>
+          <li>
+            <div class="label text-[10px] text-paper/50">TELEFON</div>
+            <a href="tel:+420000000000" class="mt-1 text-paper hover:text-primary block">[+420 000 000 000]</a>
+          </li>
+          <li>
+            <div class="label text-[10px] text-paper/50">TRANSPARENTNÍ ÚČET</div>
+            <a href="#" class="mt-1 text-paper hover:text-primary block">[123 456 789 / 0100]</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-6 border-t-2 border-primary/40 flex flex-wrap items-center justify-between gap-4 label text-[10px] text-paper/60">
+      <div>© 2026 ODS POLICE — VŠECHNA PRÁVA VYHRAZENA</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-primary">VOLEBNÍ KOMISE</a>
+        <a href="#" class="hover:text-primary">ZADAVATEL: ODS POLICE</a>
+        <a href="#" class="hover:text-primary">ZPRACOVATEL: [—]</a>
+      </div>
+    </div>
+  </div>
+</footer>
