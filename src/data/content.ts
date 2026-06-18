@@ -34,8 +34,6 @@ export const CANDIDATES: Candidate[] = [
   { n:8, name:'[JMÉNO KANDIDÁTA]', role:'[ZASTUPITEL]',      bio:'[Krátký bio řádek o profesi a vztahu k městu.]', photo:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop&crop=faces&q=80' },
 ];
 
-export const LEADER_PHOTO = 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=1000&fit=crop&crop=faces&q=85';
-
 export const TEAM_PHOTO = 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=800&fit=crop&q=85';
 
 export const LEADER_QUOTE = '[VÝRAZNÝ CITÁT LÍDRA — dvě až tři věty o tom, proč kandidujeme a čemu věříme.]';
