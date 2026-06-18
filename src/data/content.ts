@@ -36,6 +36,10 @@ export const CANDIDATES: Candidate[] = [
 
 export const LEADER_PHOTO = 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=1000&fit=crop&crop=faces&q=85';
 
+export const TEAM_PHOTO = 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&h=800&fit=crop&q=85';
+
+export const LEADER_QUOTE = '[VÝRAZNÝ CITÁT LÍDRA — dvě až tři věty o tom, proč kandidujeme a čemu věříme.]';
+
 export const PROGRAM_ACCORDION: ProgramChapter[] = [
   { n:'01', t:'BEZPEČNÉ MĚSTO',     bg:'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1600&h=900&fit=crop&q=80', body:['[Bod programu — co konkrétně uděláme s městskou policií a kamerovým systémem.]','[Bod programu — prevence kriminality, spolupráce s PČR, osvětlení rizikových míst.]','[Bod programu — komunitní programy pro mládež.]'] },
   { n:'02', t:'ROZUMNÝ ROZPOČET',   bg:'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=1600&h=900&fit=crop&q=80', body:['[Bod programu — audit hospodaření a transparentní rozklikávací rozpočet.]','[Bod programu — žádné nové daně a poplatky občanům.]','[Bod programu — efektivní čerpání dotačních titulů.]'] },
