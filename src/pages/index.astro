@@ -5,10 +5,11 @@ import Hero from '../components/Hero.astro';
 import GroupPhoto from '../components/GroupPhoto.astro';
 import Priorities from '../components/Priorities.astro';
 import Candidates from '../components/Candidates.astro';
-import CityShowcase from '../components/CityShowcase.astro';
+// import CityShowcase from '../components/CityShowcase.astro';
 import ProgramAccordion from '../components/ProgramAccordion';
-import NewsEvents from '../components/NewsEvents.astro';
-import Footer from '../components/Footer.astro';
+import Vision from '../components/Vision.astro';
+// import NewsEvents from '../components/NewsEvents.astro';
+// import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 ---
 <Base>
@@ -19,8 +20,9 @@ import '../styles/global.css';
     <Priorities />
     <Candidates />
     <ProgramAccordion client:load />
-    <CityShowcase />
-    <NewsEvents />
+    <Vision />
+    {/* <CityShowcase /> */}
+    {/* <NewsEvents /> */}
   </main>
-  <Footer />
+  {/* <Footer /> */}
 </Base>

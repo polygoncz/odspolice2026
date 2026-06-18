@@ -1,32 +1,76 @@
 ---
-import { CANDIDATES } from '../data/content';
+import { Image } from 'astro:assets';
+import { CANDIDATES, CANDIDATES_INTRO } from '../data/content';
+const leader = CANDIDATES[0];
+const rest   = CANDIDATES.slice(1);
 ---
 <section id="kandidati" class="bg-ink text-paper py-24 border-b-2 border-ink relative overflow-hidden">
   <div class="absolute" style="left:-60px;top:80px;width:260px;height:260px;background:#26A9AE;opacity:0.35"></div>
   <div class="absolute" style="right:-40px;bottom:60px;width:180px;height:320px;background:#39D4D8;opacity:0.18"></div>
 
   <div class="relative max-w-[1280px] mx-auto px-6 lg:px-10">
-    <!-- SectionHeader dark -->
     <div class="max-w-[820px]">
       <div class="flex items-center gap-3 mb-6">
         <span class="inline-block w-8 h-[3px] bg-primary"></span>
         <span class="label text-[11px] text-primary">02 / TÝM</span>
       </div>
       <h2 class="h-display text-paper" style="font-size:clamp(40px, 6vw, 76px)">KANDIDÁTI</h2>
-      <p class="mt-5 text-[16px] leading-[1.55] text-paper/75 max-w-[640px]">[Pár vět o týmu — kdo jsme, odkud jsme, proč kandidujeme.]</p>
+      <p class="mt-5 text-[16px] leading-[1.55] text-paper/75 max-w-[640px]">{CANDIDATES_INTRO}</p>
     </div>
 
-    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {CANDIDATES.map(c => (
+    <!-- Leader featured card -->
+    <div class="mt-14 border-2 border-primary overflow-hidden">
+      <div class="grid lg:grid-cols-12">
+        <!-- Photo or placeholder -->
+        <div class="lg:col-span-5 relative bg-secondary/10 overflow-hidden" style="min-height:380px">
+          {leader.photo ? (
+            <Image src={leader.photo} alt={leader.name} width={600} height={800}
+              class="absolute inset-0 w-full h-full object-cover"
+              style="filter:grayscale(0.1) contrast(1.05)" />
+          ) : (
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-4" style="background:repeating-linear-gradient(135deg,#002D52 0px,#002D52 18px,#003a6b 18px,#003a6b 36px)">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <circle cx="32" cy="22" r="14" stroke="#39D4D8" stroke-width="2" opacity="0.5"/>
+                <path d="M6 58c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#39D4D8" stroke-width="2" opacity="0.5"/>
+              </svg>
+              <div class="label text-[10px] text-primary/50">FOTO BRZY</div>
+            </div>
+          )}
+          <div class="absolute top-0 left-0 bg-primary text-ink px-4 py-3 border-r-2 border-b-2 border-ink z-10">
+            <div class="h-display text-[40px] leading-none">01</div>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-center border-t-2 lg:border-t-0 lg:border-l-2 border-primary">
+          <div class="h-display text-paper" style="font-size:clamp(40px, 5vw, 68px)">{leader.name}</div>
+          {leader.bio && <p class="h-display text-primary mt-4" style="font-size:clamp(22px, 3vw, 40px)">{leader.bio}</p>}
+        </div>
+      </div>
+    </div>
+
+    <!-- Remaining 16 candidates -->
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {rest.map(c => (
         <article class="bg-paper text-ink border-2 border-primary">
           <div class="relative bg-ink overflow-hidden" style="aspect-ratio:3/4">
-            <img src={c.photo} alt={c.name} class="absolute inset-0 w-full h-full object-cover" style="filter:grayscale(0.1) contrast(1.05)" loading="lazy" />
+            {c.photo ? (
+              <Image src={c.photo} alt={c.name} width={600} height={800}
+                class="absolute inset-0 w-full h-full object-cover"
+                style="filter:grayscale(0.1) contrast(1.05)" />
+            ) : (
+              <div class="absolute inset-0 flex flex-col items-center justify-center gap-3" style="background:repeating-linear-gradient(135deg,#002D52 0px,#002D52 14px,#003a6b 14px,#003a6b 28px)">
+                <svg width="40" height="40" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                  <circle cx="32" cy="22" r="14" stroke="#39D4D8" stroke-width="2" opacity="0.4"/>
+                  <path d="M6 58c0-14.36 11.64-26 26-26s26 11.64 26 26" stroke="#39D4D8" stroke-width="2" opacity="0.4"/>
+                </svg>
+                <div class="label text-[9px] text-primary/40">FOTO BRZY</div>
+              </div>
+            )}
             <div class="absolute top-0 left-0 bg-primary text-ink px-3 py-2 border-r-2 border-b-2 border-ink z-10">
               <div class="h-display text-[28px] leading-none">{String(c.n).padStart(2,'0')}</div>
             </div>
             <div class="absolute bottom-0 left-0 right-0 bg-ink/90 text-paper px-4 py-3 border-t-2 border-primary z-10">
-              <div class="label text-[10px] text-primary">{c.role}</div>
-              <div class="h-display text-[18px] leading-tight mt-1 text-paper">{c.name}</div>
+              <div class="h-display text-[18px] leading-tight text-paper">{c.name}</div>
             </div>
           </div>
           <div class="p-4 border-t-2 border-ink">
@@ -37,7 +81,7 @@ import { CANDIDATES } from '../data/content';
     </div>
 
     <div class="mt-12 flex flex-wrap items-center justify-between gap-6 border-t-2 border-primary pt-8">
-      <div class="label text-[11px] text-primary">CELÁ KANDIDÁTKA — 21 OSOBNOSTÍ</div>
+      <div class="label text-[11px] text-primary">CELÁ KANDIDÁTKA — 17 OSOBNOSTÍ</div>
       <a href="#" class="btn-primary label text-[12px] px-6 py-3">Zobrazit celý tým →</a>
     </div>
   </div>

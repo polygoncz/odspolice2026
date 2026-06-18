@@ -7,4 +7,7 @@ export default defineConfig({
     react(),
     tailwind({ applyBaseStyles: false }),
   ],
+  image: {
+    domains: ['images.unsplash.com'],
+  },
 });

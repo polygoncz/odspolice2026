@@ -6,14 +6,18 @@ import { NAV } from '../data/content';
     <a href="#top" class="flex items-center">
       <!-- LogoMark inlined -->
       <div class="flex items-center gap-3">
-        <div class="relative" style="width:44px;height:44px">
-          <div class="absolute inset-0 bg-ink"></div>
-          <div class="absolute" style="left:18%;top:18%;width:64%;height:64%;background:#39D4D8"></div>
-          <div class="absolute h-display text-ink leading-none" style="left:50%;top:50%;transform:translate(-50%,-52%);font-size:18.5px;font-weight:700">ODS</div>
+        <!-- Mark: koaliční dvojblok -->
+        <div class="flex items-stretch" style="gap:3px;height:44px;flex:none">
+          <div class="bg-ink flex flex-col items-center justify-end" style="width:18px;padding-bottom:5px">
+            <span class="h-display text-primary" style="font-size:6px;letter-spacing:0.04em">ODS</span>
+          </div>
+          <div style="width:26px;background:rgba(0,45,82,0.28)"></div>
         </div>
+        <!-- Text -->
         <div class="leading-none">
-          <div class="h-display text-ink" style="font-size:18px">POLICE 2026</div>
-          <div class="label text-ink/70" style="font-size:9px;margin-top:3px">KOMUNÁLNÍ&nbsp;VOLBY</div>
+          <div class="h-display text-ink" style="font-size:18px">ODS A NEZÁVISLÍ</div>
+          <div class="h-display text-ink" style="font-size:11px;margin-top:2px">POLICE 2026</div>
+          <div class="label text-ink/60" style="font-size:8px;margin-top:3px">KOMUNÁLNÍ&nbsp;VOLBY</div>
         </div>
       </div>
     </a>
@@ -37,7 +41,7 @@ import { NAV } from '../data/content';
 </header>
 
 <script>
-  const sections = ['program','kandidati','aktuality','akce','kontakt'];
+  const sections = ['priority','kandidati','program'];
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav-id]');
 
   function setActive() {

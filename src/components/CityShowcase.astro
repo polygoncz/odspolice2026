@@ -1,5 +1,6 @@
 ---
-import { CITY_PHOTOS } from '../data/content';
+import { Image } from 'astro:assets';
+import { CITY_PHOTOS, CITY_INTRO, CITY_POPULATION } from '../data/content';
 ---
 <section class="bg-paper border-b-2 border-ink py-24">
   <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
@@ -14,12 +15,12 @@ import { CITY_PHOTOS } from '../data/content';
       </div>
       <div class="lg:col-span-5">
         <p class="text-[16px] leading-[1.6] text-ink/85 max-w-[460px]">
-          [Krátký, osobní odstavec o vztahu k městu. Proč zrovna Police, co je nám tady cenné, co chceme zachovat — a co změnit.]
+          {CITY_INTRO}
         </p>
         <div class="mt-6 inline-flex items-center gap-3 bg-ink text-primary px-4 py-2 border-2 border-ink">
           <span class="label text-[10px]">POLICE NAD METUJÍ</span>
           <span class="h-display text-[14px]">·</span>
-          <span class="label text-[10px]">[X XXX OBYVATEL]</span>
+          <span class="label text-[10px]">{CITY_POPULATION}</span>
         </div>
       </div>
     </div>
@@ -35,8 +36,8 @@ import { CITY_PHOTOS } from '../data/content';
           return (
             <div class={spanClass}>
               <div class="relative h-full bg-ink border-2 border-ink overflow-hidden">
-                <img src={p.src} alt={p.cap} class="absolute inset-0 w-full h-full object-cover"
-                     style="filter:grayscale(0.2) contrast(1.05)" loading="lazy" />
+                <Image src={p.src} alt={p.cap} width={i === 0 ? 1400 : 900} height={i === 0 ? 1100 : 600} class="absolute inset-0 w-full h-full object-cover"
+                     style="filter:grayscale(0.2) contrast(1.05)" />
                 <div class="absolute inset-0 bg-ink/15"></div>
                 <div class="absolute bottom-0 left-0 right-0 bg-ink/90 text-paper px-4 py-3 border-t-2 border-primary z-10 flex items-end justify-between gap-3">
                   <div>

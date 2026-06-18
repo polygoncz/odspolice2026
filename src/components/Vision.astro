@@ -1,0 +1,22 @@
+---
+import { VISION_CARDS } from '../data/content';
+---
+<section class="bg-ink border-b-2 border-ink py-24">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-10">
+
+    <div class="flex items-center gap-3 mb-14">
+      <span class="inline-block w-10 h-[3px] bg-primary"></span>
+      <span class="label text-[12px] text-primary">CO CHCEME DÁLE</span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-0 border-2 border-primary">
+      {VISION_CARDS.map((card, i) => (
+        <div class={`p-8 lg:p-10 flex flex-col gap-6${i < VISION_CARDS.length - 1 ? ' border-b-2 md:border-b-0 md:border-r-2 border-primary' : ''}`}>
+          <div class="h-display text-primary" style="font-size:clamp(22px, 2.4vw, 32px)">{card.t}</div>
+          <p class="text-[15px] leading-[1.65] text-paper/75 flex-1">{card.d}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

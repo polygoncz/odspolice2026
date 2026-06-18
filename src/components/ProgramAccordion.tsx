@@ -13,7 +13,7 @@ export default function ProgramAccordion() {
         <div className="max-w-[820px]">
           <div className="flex items-center gap-3 mb-6">
             <span className="inline-block w-8 h-[3px] bg-primary"></span>
-            <span className="label text-[11px] text-secondary">03 / DETAIL</span>
+            <span className="label text-[11px] text-secondary">03 / PROGRAM</span>
           </div>
           <h2 className="h-display text-ink" style={{ fontSize: 'clamp(40px, 6vw, 76px)' }}>CELÝ PROGRAM</h2>
           <p className="mt-5 text-[16px] leading-[1.55] text-ink/75 max-w-[640px]">[Šest kapitol, konkrétní body. Bez vaty.]</p>

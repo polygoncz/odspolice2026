@@ -1,5 +1,5 @@
 ---
-import { NAV } from '../data/content';
+import { NAV, FOOTER_ABOUT, CONTACT_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ACCOUNT } from '../data/content';
 ---
 <footer id="kontakt" class="bg-ink text-paper">
   <div class="max-w-[1280px] mx-auto px-6 lg:px-10 pt-20 pb-10">
@@ -8,14 +8,20 @@ import { NAV } from '../data/content';
       <!-- Brand -->
       <div class="lg:col-span-5">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-12 h-12 bg-primary relative">
-            <div class="absolute inset-[18%] bg-ink"></div>
+          <!-- Mark: koaliční dvojblok, inversní pro tmavé pozadí -->
+          <div class="flex items-stretch" style="gap:3px;height:52px;flex:none">
+            <div class="flex flex-col items-center justify-end" style="width:22px;padding-bottom:6px;background:#39D4D8">
+              <span class="h-display" style="font-size:7px;color:#002D52;letter-spacing:0.04em">ODS</span>
+            </div>
+            <div style="width:30px;background:rgba(57,212,216,0.28)"></div>
           </div>
-          <div class="h-display text-[26px] tracking-tighter">ODS POLICE 2026</div>
+          <!-- Text -->
+          <div class="leading-none">
+            <div class="h-display text-paper" style="font-size:22px">ODS A NEZÁVISLÍ</div>
+            <div class="h-display" style="font-size:14px;color:#39D4D8;margin-top:3px">POLICE 2026</div>
+          </div>
         </div>
-        <p class="text-[14px] leading-[1.6] text-paper/75 max-w-[420px]">
-          [Krátký popis sdružení a kampaně. Dvě věty o tom, kdo jsme a o co usilujeme v komunálních volbách 2026.]
-        </p>
+        <p class="text-[14px] leading-[1.6] text-paper/75 max-w-[420px]">{FOOTER_ABOUT}</p>
         <div class="mt-8 grid grid-cols-2 max-w-[200px] border-2 border-primary">
           {(['FB','IG'] as const).map((s, i) => (
             <a href="#" class={`label text-[12px] py-3 text-center text-paper hover:bg-primary hover:text-ink ${i < 1 ? 'border-r-2 border-primary' : ''}`}>{s}</a>
@@ -43,19 +49,19 @@ import { NAV } from '../data/content';
         <ul class="space-y-5 text-[14px]">
           <li>
             <div class="label text-[10px] text-paper/50">ADRESA</div>
-            <div class="mt-1 text-paper">[Náměstí 1, 549 54 Police]</div>
+            <div class="mt-1 text-paper">{CONTACT_ADDRESS}</div>
           </li>
           <li>
             <div class="label text-[10px] text-paper/50">E-MAIL</div>
-            <a href="mailto:info@odspolice2026.cz" class="mt-1 text-paper hover:text-primary block">[info@odspolice2026.cz]</a>
+            <a href={`mailto:${CONTACT_EMAIL}`} class="mt-1 text-paper hover:text-primary block">{CONTACT_EMAIL}</a>
           </li>
           <li>
             <div class="label text-[10px] text-paper/50">TELEFON</div>
-            <a href="tel:+420000000000" class="mt-1 text-paper hover:text-primary block">[+420 000 000 000]</a>
+            <a href={`tel:${CONTACT_PHONE.replace(/\s/g,'')}`} class="mt-1 text-paper hover:text-primary block">{CONTACT_PHONE}</a>
           </li>
           <li>
             <div class="label text-[10px] text-paper/50">TRANSPARENTNÍ ÚČET</div>
-            <a href="#" class="mt-1 text-paper hover:text-primary block">[123 456 789 / 0100]</a>
+            <a href="#" class="mt-1 text-paper hover:text-primary block">{CONTACT_ACCOUNT}</a>
           </li>
         </ul>
       </div>
