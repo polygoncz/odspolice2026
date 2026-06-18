@@ -1,5 +1,5 @@
 ---
-import { LEADER_PHOTO } from '../data/content';
+import { TEAM_PHOTO } from '../data/content';
 ---
 <section id="top" class="relative bg-primary border-b-2 border-ink overflow-hidden">
   <div class="absolute inset-0 grid-lines pointer-events-none"></div>
@@ -65,18 +65,22 @@ import { LEADER_PHOTO } from '../data/content';
       </div>
     </div>
 
-    <!-- Right: layered portrait -->
+    <!-- Right: team photo -->
     <div class="lg:col-span-5 relative">
-      <div class="relative" style="min-height:580px">
-        <div class="absolute" style="right:0;top:0;width:88%;height:480px;background:#26A9AE"></div>
-        <div class="absolute" style="left:0;top:380px;width:200px;height:120px;background:#002D52"></div>
-        <div class="absolute border-2 border-ink overflow-hidden bg-ink" style="left:40px;top:60px;width:320px;height:440px">
-          <img src={LEADER_PHOTO} alt="[Lídr kandidátky]" class="w-full h-full object-cover" style="filter:grayscale(0.15) contrast(1.05)" />
+      <div class="relative" style="min-height:480px">
+        <!-- decorative accent blocks -->
+        <div class="absolute" style="right:0;top:0;width:88%;height:380px;background:#26A9AE"></div>
+        <div class="absolute" style="left:0;top:300px;width:200px;height:100px;background:#002D52"></div>
+
+        <!-- team photo frame -->
+        <div class="absolute border-2 border-ink overflow-hidden bg-ink" style="left:30px;top:50px;right:0;height:340px">
+          <img src={TEAM_PHOTO} alt="[Tým ODS Police]" class="w-full h-full object-cover" style="filter:grayscale(0.1) contrast(1.05)" />
           <div class="absolute bottom-0 left-0 right-0 bg-ink text-primary px-4 py-3 border-t-2 border-primary">
-            <div class="label text-[10px] text-primary/80">LÍDR KANDIDÁTKY</div>
-            <div class="h-display text-[20px] leading-tight mt-1">[JMÉNO KANDIDÁTA]</div>
+            <div class="label text-[10px] text-primary/80">NÁŠ TÝM</div>
+            <div class="h-display text-[20px] leading-tight mt-1">21 OSOBNOSTÍ PRO POLICI</div>
           </div>
         </div>
+
         <!-- Circle stamp -->
         <div class="absolute" style="right:-10px;top:-20px">
           <div class="stamp relative bg-ink text-primary flex items-center justify-center border-4 border-primary" style="width:160px;height:160px">
