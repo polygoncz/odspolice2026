@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Logo mark z Navbaru (koaliční dvojblok) na tyrkysovém podkladu -->
+  <rect width="64" height="64" fill="#39D4D8"/>
+  <rect x="4" y="6" width="22" height="52" fill="#002D52"/>
+  <rect x="29" y="6" width="31" height="52" fill="#002D52" fill-opacity="0.28"/>
+  <text x="15" y="52" text-anchor="middle" font-family="Oswald, 'Arial Narrow', Arial, sans-serif" font-weight="700" font-size="8.5" letter-spacing="0.3" fill="#39D4D8">ODS</text>
+</svg>

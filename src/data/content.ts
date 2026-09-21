@@ -1,10 +1,14 @@
-export interface NavItem      { id: string; label: string; }
-export interface PriorityCard { n: string; t: string; d: string; bg: string; }
-export interface Candidate    { n: number; name: string; bio: string; photo: ImageMetadata | null; }
-export interface ProgramChapter { n: string; t: string; bg: string; body: string[]; }
-export interface NewsItem     { date: string; tag: string; t: string; }
-export interface EventItem    { d: string; m: string; t: string; loc: string; }
-export interface CityPhoto    { src: string; cap: string; meta: string; }
+import type { ImageMetadata } from 'astro';
+
+export interface NavItem        { id: string; label: string; }
+export interface PriorityCard   { n: string; t: string; d: string; bg: ImageMetadata; }
+export interface Candidate      { n: number; name: string; bio: string; photo: ImageMetadata; }
+export interface ProgramChapter { n: string; t: string; bg: ImageMetadata; body: string[]; }
+export interface PhotoCredit    { what: string; author: string; license: string; licenseUrl: string; sourceUrl: string; }
+export interface NewsItem       { date: string; tag: string; t: string; }
+export interface EventItem      { d: string; m: string; t: string; loc: string; }
+export interface CityPhoto      { src: string; cap: string; meta: string; }
+export interface VisionCard     { t: string; d: string; }
 
 export const NAV: NavItem[] = [
   { id: 'priority',  label: 'Priority' },
@@ -12,83 +16,132 @@ export const NAV: NavItem[] = [
   { id: 'program',   label: 'Program' },
 ];
 
-export const PRIORITY_CARDS: PriorityCard[] = [
-  { n:'01', t:'BEZPEČNÉ MĚSTO',      d:'Modernizujeme vybavení městské policie a rozšiřujeme kamerový systém. Připravili jsme pořízení nového technického vozidla pro hasiče s podporou dotačních programů.',                                          bg:'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=900&h=900&fit=crop&q=80' },
-  { n:'02', t:'ROZUMNÝ ROZPOČET',    d:'Digitalizujeme úřad a zavádíme nástroje, které zjednodušují komunikaci občanů s městem. Důležité investice projednáváme s občany v rámci participativního plánování.',                                         bg:'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=900&h=900&fit=crop&q=80' },
-  { n:'03', t:'DOSTUPNÉ BYDLENÍ',    d:'Připravujeme bytovou výstavbu v lokalitě Ostašská a nabízíme pozemky pro mladé rodiny. Budujeme sportovní a volnočasovou infrastrukturu pro všechny věkové skupiny.',                                          bg:'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&h=900&fit=crop&q=80' },
-  { n:'04', t:'KULTURA A VZDĚLÁVÁNÍ', d:'Obnovili jsme tradiční akce, připravujeme modernizaci kina a energetické úspory v Kolárově divadle. Školy zapojujeme do kreativního vzdělávání a rozvíjíme spolupráci s kulturními institucemi.',         bg:'https://images.unsplash.com/photo-1543674892-7d64d45df18b?w=900&h=900&fit=crop&q=80' },
-  { n:'05', t:'DOPRAVA A PARKOVÁNÍ', d:'Připravili jsme projekty oprav komunikací a chodníků v několika částech města. Pracujeme na bezpečnějším dopravním prostředí a bezpečných cestách do škol.',                                                    bg:'https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?w=900&h=900&fit=crop&q=80' },
-  { n:'06', t:'ZELEŇ A KRAJINA',     d:'Vysazujeme zeleň, revitalizujeme parky a připravujeme projekty na zadržování vody v krajině. Budujeme fotovoltaické elektrárny a jsme součástí energetického společenství pro úspory domácnostem i městu.',    bg:'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=900&h=900&fit=crop&q=80' },
+// ─── Program ────────────────────────────────────────────────────────────────
+// Šest kapitol navazujících na předešlý program. Každá kapitola má anotaci
+// (dlaždice v sekci Priority) a tři opatření (rozbalený řádek v sekci Program).
+
+// Fotky města z Wikimedia Commons (volné licence CC, vyžadují uvedení autora).
+// V dlaždicích jsou barevně upravené — proto „upraveno" v PHOTO_CREDITS.
+import _bg_urad        from '../assets/mesto/urad.jpg';
+import _bg_kultura     from '../assets/mesto/kultura.jpg';
+import _bg_investice   from '../assets/mesto/investice.jpg';
+import _bg_prostredi   from '../assets/mesto/prostredi.jpg';
+import _bg_bezpecnost  from '../assets/mesto/bezpecnost.jpg';
+import _bg_socialni    from '../assets/mesto/socialni.jpg';
+
+const CHAPTER_BG = {
+  urad:        _bg_urad,
+  kultura:     _bg_kultura,
+  investice:   _bg_investice,
+  prostredi:   _bg_prostredi,
+  bezpecnost:  _bg_bezpecnost,
+  socialni:    _bg_socialni,
+} as const;
+
+export const PHOTO_CREDITS: PhotoCredit[] = [
+  { what:"Radnice na Masarykově náměstí", author:"Draceane", license:"CC BY-SA 4.0", licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3APolice_nad_Metuj%C3%AD%2C_n%C3%A1m%C4%9Bst%C3%AD%2C_radnice.jpg" },
+  { what:"Klášter", author:"MMN1879", license:"CC BY-SA 4.0", licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3A07_001_Police_nad_Metuji_muzeum_v_klastere.jpg" },
+  { what:"Pohled na město od Žďáru", author:"Petr1888", license:"CC BY-SA 4.0", licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3APohled_na_Polici_nad_Metuj%C3%AD_z_vyhl%C3%ADdky_u_silnice_do_%C5%BD%C4%8F%C3%A1ru.jpg" },
+  { what:"Rybník Hony", author:"Dezidor", license:"CC BY 3.0", licenseUrl:"https://creativecommons.org/licenses/by/3.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3ARybn%C3%ADk_Hony%2C_Police_nad_Metuj%C3%AD.jpg" },
+  { what:"Masarykovo náměstí", author:"Petr1888", license:"CC BY-SA 4.0", licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3APolice_nad_Metuj%C3%AD_-_Masarykovo_n%C3%A1m%C4%9Bst%C3%AD_01.jpg" },
+  { what:"Domov seniorů", author:"Petr1888", license:"CC BY-SA 4.0", licenseUrl:"https://creativecommons.org/licenses/by-sa/4.0", sourceUrl:"https://commons.wikimedia.org/wiki/File%3ADomov_senior%C5%AF_v_Polici_nad_Metuj%C3%AD.jpg" },
 ];
 
-import type { ImageMetadata } from 'astro';
-import _skop        from '../assets/skop.jpg';
-import _frydrychova from '../assets/frydrychova.jpg';
-import _soucek      from '../assets/soucek.jpg';
-import _antl        from '../assets/antl.jpg';
-import _vlcek       from '../assets/vlcek.jpg';
-import _vavra       from '../assets/vavra.jpg';
-import _lokvenc     from '../assets/lokvenc.jpg';
-import _scholz      from '../assets/scholz.jpg';
-import _rutar       from '../assets/rutar.jpg';
+export const PRIORITY_CARDS: PriorityCard[] = [
+  { n:'01', t:'MĚSTSKÝ ÚŘAD A KOMUNIKACE', bg: CHAPTER_BG.urad,
+    d:'Dokončíme přeměnu úřadu na moderní a otevřený úřad, který občanům umožní vyřídit většinu služeb online a více je zapojí do rozhodování o budoucnosti města.' },
+  { n:'02', t:'KULTURA, SPOLEČENSKÝ ŽIVOT A VZDĚLÁVÁNÍ', bg: CHAPTER_BG.kultura,
+    d:'Dále budeme podporovat pestrý kulturní a společenský život, zlepšíme zázemí pro kulturní akce a budeme rozvíjet kvalitní vzdělávání pro děti i mladé lidi.' },
+  { n:'03', t:'INVESTICE DO DOSTUPNÉHO BYDLENÍ, SPORTU A INFRASTRUKTURY', bg: CHAPTER_BG.investice,
+    d:'Zajistíme realizaci nového dostupného bydlení, zlepšíme stav škol, rozšíříme sportovní zázemí a budeme pokračovat v modernizaci komunikací a veřejné infrastruktury.' },
+  { n:'04', t:'ŽIVOTNÍ PROSTŘEDÍ A ENERGETIKA', bg: CHAPTER_BG.prostredi,
+    d:'Zavedením energetického managementu snížíme energetickou náročnost města, zlepšíme nakládání s odpady a podpoříme opatření chránící vodu, zeleň a kvalitu veřejného prostoru.' },
+  { n:'05', t:'BEZPEČNOST A OCHRANA OBYVATELSTVA', bg: CHAPTER_BG.bezpecnost,
+    d:'Posílíme bezpečnost ve městě, doplníme kamerový systém, modernizujeme vybavení městské policie a hasičů a zaměříme se na ochranu veřejného pořádku i majetku.' },
+  { n:'06', t:'SOCIÁLNÍ PÉČE A ZDRAVOTNICTVÍ', bg: CHAPTER_BG.socialni,
+    d:'Rozšíříme nabídku sociálních služeb a podpoříme seniory i občany, kteří potřebují pomoc nebo dostupné bydlení. Nadále budeme usilovat o zajištění dostupné zdravotní péče.' },
+];
 
+export const PROGRAM_ACCORDION: ProgramChapter[] = [
+  { n:'01', t:'MĚSTSKÝ ÚŘAD A KOMUNIKACE', bg: CHAPTER_BG.urad, body:[
+    'Zavedeme Portál občana pro online vyřizování formulářů, sledování podání, plateb a poplatků i automatická upozornění.',
+    'Sjednotíme informační systémy úřadu a zjednodušíme administrativní procesy.',
+    'Zapojíme občany do přípravy významných investic a strategických projektů města.',
+  ]},
+  { n:'02', t:'KULTURA, SPOLEČENSKÝ ŽIVOT A VZDĚLÁVÁNÍ', bg: CHAPTER_BG.kultura, body:[
+    'Rozšíříme nabídku kulturních a komunitních akcí, zlepšíme jejich propagaci a představíme novou vizuální identitu města.',
+    'Zmodernizujeme kino, zlepšíme technické vybavení Kolárova divadla a snížíme jeho energetickou náročnost.',
+    'Naplníme schválené rozvojové koncepce ZŠ a MŠ a podpoříme další rozvoj ZUŠ.',
+  ]},
+  { n:'03', t:'INVESTICE DO DOSTUPNÉHO BYDLENÍ, SPORTU A INFRASTRUKTURY', bg: CHAPTER_BG.investice, body:[
+    'Zahájíme výstavbu bytových domů v ulici Ostašská pro nájemní nebo družstevní bydlení.',
+    'Opravíme střechu ZŠ, vyměníme okna školní jídelny, instalujeme fotovoltaiku a upravíme školní zahrady, připravíme projekt tělocvičny v MŠ.',
+    'Vybudujeme nová sportoviště v Pěkově a Hlavňově. Opravíme ulice K Drůbežárně, Výhledy, Na Honech, Tomkova, Smetanova a Dvořákova. Zrealizujeme chodník v ulici Bělská.',
+  ]},
+  { n:'04', t:'ŽIVOTNÍ PROSTŘEDÍ A ENERGETIKA', bg: CHAPTER_BG.prostredi, body:[
+    'Zmodernizujeme a zefektivníme odpadové hospodářství zavedením čipování nádob, odpadové karty občana a rozšířením sběrného dvora.',
+    'Zavedeme energetický management a rozšíříme využití fotovoltaiky na městských budovách a školách.',
+    'Podpoříme zadržování vody v krajině, dokončíme revitalizaci Pellyho parku a připravíme obnovu Bezděkových sadů.',
+  ]},
+  { n:'05', t:'BEZPEČNOST A OCHRANA OBYVATELSTVA', bg: CHAPTER_BG.bezpecnost, body:[
+    'Navýšíme počet strážníků na pět a zajistíme moderní vybavení městské policie včetně kamerového pultu.',
+    'Rozšíříme kamerový systém a instalujeme další radary na rizikových úsecích komunikací.',
+    'Dokončíme obnovu techniky jednotky dobrovolných hasičů pořízením velitelského a cisternového vozidla.',
+  ]},
+  { n:'06', t:'SOCIÁLNÍ PÉČE A ZDRAVOTNICTVÍ', bg: CHAPTER_BG.socialni, body:[
+    'Budeme nadále aktivně oslovovat mediky a lékaře s cílem zajistit dlouhodobě dostupnou zdravotní péči ve městě, především z hlediska dětského lékaře a zubařů.',
+    'Rozšíříme terénní sociální služby a vybudujeme nové sociální byty rekonstrukcí stávajících objektů i v rámci nové bytové výstavby.',
+    'Rozšíříme službu Senior taxi a zrekonstruujeme Domov s pečovatelskou službou včetně zateplení a nové vzduchotechniky.',
+  ]},
+];
+
+// ─── Kandidátka ─────────────────────────────────────────────────────────────
+
+import _01 from '../assets/kandidati/01.jpg';
+import _02 from '../assets/kandidati/02.jpg';
+import _03 from '../assets/kandidati/03.jpg';
+import _04 from '../assets/kandidati/04.jpg';
+import _05 from '../assets/kandidati/05.jpg';
+import _06 from '../assets/kandidati/06.jpg';
+import _07 from '../assets/kandidati/07.jpg';
+import _08 from '../assets/kandidati/08.jpg';
+import _09 from '../assets/kandidati/09.jpg';
+import _10 from '../assets/kandidati/10.jpg';
+import _11 from '../assets/kandidati/11.jpg';
+import _12 from '../assets/kandidati/12.jpg';
+import _13 from '../assets/kandidati/13.jpg';
+import _14 from '../assets/kandidati/14.jpg';
+import _15 from '../assets/kandidati/15.jpg';
+import _16 from '../assets/kandidati/16.jpg';
+import _17 from '../assets/kandidati/17.jpg';
+
+// Pořadí a profese podle kandidátní listiny podané pro volby 9.–10. 10. 2026.
 export const CANDIDATES: Candidate[] = [
-  { n:1,  name:'Mgr. Jiří Škop',           bio:'starosta',                             photo: _skop        },
-  { n:2,  name:'Mgr. Martina Frydrychová', bio:'kurátor',                              photo: _frydrychova },
-  { n:3,  name:'Mgr. Jaroslav Souček',     bio:'místostarosta',                        photo: _soucek      },
-  { n:4,  name:'Jan Antl',                 bio:'ředitel pobočky',                      photo: _antl        },
-  { n:5,  name:'Ing. Jiří Vlček',          bio:'výrobní ředitel',                      photo: _vlcek       },
-  { n:6,  name:'David Vávra',              bio:'podnikatel',                           photo: _vavra       },
-  { n:7,  name:'Mgr. David Hauschke',      bio:'',                                     photo: null         },
-  { n:8,  name:'Daniel Denygr',            bio:'učitel, realitní makléř',              photo: null         },
-  { n:9,  name:'Ing. Pavel Lokvenc',       bio:'podnikatel',                           photo: _lokvenc     },
-  { n:10, name:'Jana Kollertová',          bio:'',                                     photo: null         },
-  { n:11, name:'Bc. Nikolas Letzel',       bio:'manažer výzkumu a vývoje / student',   photo: null         },
-  { n:12, name:'Ing. Jan Miler',           bio:'projektový manažer',                   photo: null         },
-  { n:13, name:'Gabriela Tomášová',        bio:'podnikatelka',                         photo: null         },
-  { n:14, name:'Petr Scholz',              bio:'pracující důchodce',                   photo: _scholz      },
-  { n:15, name:'Petr Rutar',               bio:'pracovník městského úřadu',            photo: _rutar       },
-  { n:16, name:'Josef Martinec',           bio:'',                                     photo: null         },
-  { n:17, name:'Milan Hejnyš',             bio:'',                                     photo: null         },
+  { n:1,  name:'Mgr. Jiří Škop',           bio:'starosta',                                        photo:_01 },
+  { n:2,  name:'Mgr. Martina Frydrychová', bio:'kurátorka galerie / PR manažerka',                photo:_02 },
+  { n:3,  name:'Mgr. Jaroslav Souček',     bio:'místostarosta / manažer vzdělávání',              photo:_03 },
+  { n:4,  name:'Jan Antl',                 bio:'ředitel pobočky',                                 photo:_04 },
+  { n:5,  name:'Ing. Jiří Vlček',          bio:'výrobní ředitel',                                 photo:_05 },
+  { n:6,  name:'David Vávra',              bio:'OSVČ',                                            photo:_06 },
+  { n:7,  name:'Mgr. David Hauschke',      bio:'projektový manažer',                              photo:_07 },
+  { n:8,  name:'Daniel Denygr',            bio:'učitel, realitní makléř',                         photo:_08 },
+  { n:9,  name:'Ing. Pavel Lokvenc',       bio:'OSVČ',                                            photo:_09 },
+  { n:10, name:'Bc. Nikolas Letzel',       bio:'manažer výzkumu a vývoje / student',              photo:_10 },
+  { n:11, name:'Jana Kollertová',          bio:'zubní technik / starostka SDH Velká Ledhuje',     photo:_11 },
+  { n:12, name:'Ing. Jan Miler',           bio:'finanční analytik',                               photo:_12 },
+  { n:13, name:'Gabriela Tomášová',        bio:'OSVČ',                                            photo:_13 },
+  { n:14, name:'Petr Scholz',              bio:'pracující důchodce',                              photo:_14 },
+  { n:15, name:'Petr Rutar',               bio:'pracovník městského úřadu',                       photo:_15 },
+  { n:16, name:'Josef Martinec',           bio:'obchodní zástupce',                               photo:_16 },
+  { n:17, name:'Milan Hejnyš',             bio:'pracovník kvality – svářecí technolog',           photo:_17 },
 ];
 
 import teamPhoto from '../assets/tym.jpg';
 export const TEAM_PHOTO = teamPhoto;
 
-export const LEADER_QUOTE = 'Chceme pokračovat v rozvoji Police nad Metují jako moderního, bezpečného a živého města pro rodiny, mladé lidi i seniory.';
+export const LEADER_QUOTE = 'Chceme pokračovat v rozvoji Police jako moderního, bezpečného a živého města pro mladé, rodiny i seniory.';
 
-export const PROGRAM_ACCORDION: ProgramChapter[] = [
-  { n:'01', t:'BEZPEČNÉ MĚSTO',     bg:'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1600&h=900&fit=crop&q=80', body:[
-    'Zlepšili jsme vybavení městské policie a zavedli moderní software pro efektivnější práci a správu podnětů od občanů.',
-    'Postupně rozšiřujeme kamerový systém a připravujeme opatření pro zvýšení bezpečnosti chodců i dopravy.',
-    'Připravili jsme pořízení nového technického vozidla pro hasiče s využitím dostupných dotačních programů.',
-  ]},
-  { n:'02', t:'ROZUMNÝ ROZPOČET',   bg:'https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=1600&h=900&fit=crop&q=80', body:[
-    'Postupně digitalizujeme fungování městského úřadu — rozvíjíme elektronická podání, projektové řízení a sdílené systémy.',
-    'Důležité investice projednáváme s občany: participativní plánování proběhlo u Pellyho parku, Bezděkových sadů nebo rekonstrukcí komunikací.',
-    'Vybrali jsme městského architekta a připravujeme manuál tvorby města pro sjednocení přístupu k rozvoji Police nad Metují.',
-  ]},
-  { n:'03', t:'DOSTUPNÉ BYDLENÍ',   bg:'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1600&h=900&fit=crop&q=80', body:[
-    'Připravujeme bytovou výstavbu v lokalitě Ostašská a nabízíme stavební pozemky v ulici Větrná pro mladé rodiny.',
-    'Budujeme sportovní park na Ostašské, nové školní hřiště a atletickou dráhu. Připravujeme hřiště v Pěkově a Hlavňově a klubovnu v Radešově.',
-    'Pracujeme na workoutových prvcích, pumptracku i dětských hřištích dostupných pro celé město.',
-  ]},
-  { n:'04', t:'KULTURA A VZDĚLÁVÁNÍ',bg:'https://images.unsplash.com/photo-1543674892-7d64d45df18b?w=1600&h=900&fit=crop&q=80', body:[
-    'Podpořili jsme vznik nových kulturních akcí a obnovili tradiční události — masopust, čarodějnice, drakiáda. Pracujeme na jednotné propagaci kulturního dění ve městě.',
-    'Připravili jsme technická řešení pro modernizaci kina a energetické úspory v Kolárově divadle — projekty čekají na vhodné dotační možnosti.',
-    'Základní škola se zapojila do projektů kreativního vzdělávání z Národního plánu obnovy. Podporujeme spolupráci škol s kulturními institucemi a rozvoj tvořivosti dětí.',
-  ]},
-  { n:'05', t:'DOPRAVA A PARKOVÁNÍ',bg:'https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?w=1600&h=900&fit=crop&q=80', body:[
-    'Připravili jsme projekty oprav komunikací v několika částech města a pokračujeme v přípravě nových chodníků.',
-    'Pracujeme na bezpečnějším dopravním prostředí a bezpečných cestách do škol pro děti i chodce.',
-    'Připravujeme opatření pro zklidnění dopravy a lepší organizaci parkování v centru i na sídlišti.',
-  ]},
-  { n:'06', t:'ZELEŇ A KRAJINA',    bg:'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&h=900&fit=crop&q=80', body:[
-    'Pokračujeme ve výsadbách zeleně, revitalizaci parků a přípravě projektů na zadržování dešťové vody v krajině.',
-    'Připravujeme fotovoltaické elektrárny na městských budovách a projekty snižující energetickou náročnost veřejných objektů.',
-    'Přidali jsme se do energetického společenství pro efektivnější využívání vyrobené energie — do budoucna přinese úspory domácnostem i firmám.',
-  ]},
-];
+// ─── Aktuality a akce ───────────────────────────────────────────────────────
 
 export const NEWS: NewsItem[] = [
   { date:'12. 05. 2026', tag:'TISKOVÁ ZPRÁVA', t:'[NÁZEV ČLÁNKU — krátký a úderný titulek na dva řádky.]' },
@@ -97,10 +150,10 @@ export const NEWS: NewsItem[] = [
 ];
 
 export const EVENTS: EventItem[] = [
-  { d:'22', m:'KVĚ', t:'[DEBATA S OBČANY]',         loc:'[NÁMĚSTÍ — 18:00]' },
-  { d:'04', m:'ČER', t:'[OBCHŮZKA SÍDLIŠTĚ]',       loc:'[SÍDLIŠTĚ SEVER — 17:00]' },
-  { d:'15', m:'ČER', t:'[KAFE SE STAROSTOU]',        loc:'[KAVÁRNA U RADNICE — 9:00]' },
-  { d:'28', m:'ČER', t:'[OTEVŘENÉ ZASTUPITELSTVO]',  loc:'[RADNICE — 17:30]' },
+  { d:'22', m:'KVĚ', t:'[DEBATA S OBČANY]',        loc:'[NÁMĚSTÍ — 18:00]' },
+  { d:'04', m:'ČER', t:'[OBCHŮZKA SÍDLIŠTĚ]',      loc:'[SÍDLIŠTĚ SEVER — 17:00]' },
+  { d:'15', m:'ČER', t:'[KAFE SE STAROSTOU]',      loc:'[KAVÁRNA U RADNICE — 9:00]' },
+  { d:'28', m:'ČER', t:'[OTEVŘENÉ ZASTUPITELSTVO]', loc:'[RADNICE — 17:30]' },
 ];
 
 export const CITY_PHOTOS: CityPhoto[] = [
@@ -113,24 +166,29 @@ export const CITY_PHOTOS: CityPhoto[] = [
 // ─── Texty sekcí ────────────────────────────────────────────────────────────
 
 export const HERO_HEADLINE_HTML = 'ODS A NEZÁVISLÍ<br/>POLICE 2026';
-export const HERO_SUBTITLE      = 'Jsme tým lidí, kteří chtějí rozvíjet Police nad Metují s rozvahou, zkušeností a respektem k tomu, co ve městě funguje. Opíráme se o konkrétní výsledky, otevřenou komunikaci a dlouhodobou práci pro město.';
+export const HERO_SUBTITLE      = 'Jsme tým lidí, kteří chtějí rozvíjet město s rozvahou, zkušenostmi a respektem k tomu, co ve městě funguje. Opíráme se o konkrétní výsledky, otevřenou komunikaci a dlouhodobou práci pro město.';
 
-export const PRIORITIES_INTRO   = '[Krátké shrnutí — jednou větou o čem jsou priority a proč zrovna tyhle.]';
+export const PRIORITIES_INTRO   = '';
+export const PROGRAM_INTRO      = '';
 
-export const CANDIDATES_INTRO   = 'Jsme tým lidí, kteří chtějí rozvíjet Police nad Metují s rozvahou, zkušeností a respektem k tomu, co ve městě funguje. Opíráme se o konkrétní výsledky, otevřenou komunikaci a dlouhodobou práci pro město.';
+export const CANDIDATES_INTRO   = 'Jsme tým lidí, kteří chtějí rozvíjet město s rozvahou, zkušenostmi a respektem k tomu, co ve městě funguje. Opíráme se o konkrétní výsledky, otevřenou komunikaci a dlouhodobou práci pro město.';
 
 export const CITY_INTRO         = '[Krátký, osobní odstavec o vztahu k městu. Proč zrovna Police, co je nám tady cenné, co chceme zachovat — a co změnit.]';
 export const CITY_POPULATION    = '[X XXX OBYVATEL]';
 
-export interface VisionCard { t: string; d: string; }
 export const VISION_CARDS: VisionCard[] = [
   { t:'MĚSTO, KTERÉ FUNGUJE', d:'Chceme pokračovat v modernizaci úřadu, zjednodušování komunikace s občany a transparentním rozhodování.' },
-  { t:'MĚSTO PRO ŽIVOT',      d:'Budeme dál investovat do bydlení, školství, sportu, kultury i veřejného prostoru tak, aby Police nad Metují byla dobrým místem pro život všech generací.' },
+  { t:'MĚSTO PRO ŽIVOT',      d:'Budeme dál investovat do bydlení, školství, sportu, kultury i veřejného prostoru tak, aby Police byla dobrým místem pro život všech generací.' },
   { t:'ODPOVĚDNÝ ROZVOJ',     d:'Budeme pokračovat v projektech energetických úspor, komunitní energetiky a opatřeních, která pomohou městu zvládat budoucí výzvy.' },
 ];
 
-export const FOOTER_ABOUT       = '[Krátký popis sdružení a kampaně. Dvě věty o tom, kdo jsme a o co usilujeme v komunálních volbách 2026.]';
-export const CONTACT_ADDRESS    = '[Náměstí 1, 549 54 Police]';
-export const CONTACT_EMAIL      = '[info@odspolice2026.cz]';
-export const CONTACT_PHONE      = '[+420 000 000 000]';
-export const CONTACT_ACCOUNT    = '[123 456 789 / 0100]';
+export const SOCIAL = {
+  facebook:  'https://www.facebook.com/profile.php?id=61591251286988',
+  instagram: 'https://www.instagram.com/ods_police_nad_metuji/',
+} as const;
+
+export const FOOTER_ABOUT    = '[Krátký popis sdružení a kampaně. Dvě věty o tom, kdo jsme a o co usilujeme v komunálních volbách 2026.]';
+export const CONTACT_ADDRESS = '[Náměstí 1, 549 54 Police]';
+export const CONTACT_EMAIL   = '[info@odspolice2026.cz]';
+export const CONTACT_PHONE   = '[+420 000 000 000]';
+export const CONTACT_ACCOUNT = '[123 456 789 / 0100]';

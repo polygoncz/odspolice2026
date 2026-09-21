@@ -8,9 +8,19 @@ import Candidates from '../components/Candidates.astro';
 // import CityShowcase from '../components/CityShowcase.astro';
 import ProgramAccordion from '../components/ProgramAccordion';
 import Vision from '../components/Vision.astro';
+import Credits from '../components/Credits.astro';
 // import NewsEvents from '../components/NewsEvents.astro';
 // import Footer from '../components/Footer.astro';
+import { getImage } from 'astro:assets';
+import { PROGRAM_ACCORDION, PROGRAM_INTRO } from '../data/content';
 import '../styles/global.css';
+
+const programChapters = await Promise.all(
+  PROGRAM_ACCORDION.map(async ({ n, t, body, bg }) => ({
+    n, t, body,
+    image: (await getImage({ src: bg, width: 800, format: 'webp' })).src,
+  }))
+);
 ---
 <Base>
   <Navbar />
@@ -19,10 +29,11 @@ import '../styles/global.css';
     <GroupPhoto />
     <Priorities />
     <Candidates />
-    <ProgramAccordion client:load />
+    <ProgramAccordion client:load chapters={programChapters} intro={PROGRAM_INTRO} />
     <Vision />
     {/* <CityShowcase /> */}
     {/* <NewsEvents /> */}
   </main>
   {/* <Footer /> */}
+  <Credits />
 </Base>

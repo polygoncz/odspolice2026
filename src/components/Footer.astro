@@ -1,5 +1,5 @@
 ---
-import { NAV, FOOTER_ABOUT, CONTACT_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ACCOUNT } from '../data/content';
+import { NAV, SOCIAL, FOOTER_ABOUT, CONTACT_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_ACCOUNT } from '../data/content';
 ---
 <footer id="kontakt" class="bg-ink text-paper">
   <div class="max-w-[1280px] mx-auto px-6 lg:px-10 pt-20 pb-10">
@@ -23,8 +23,8 @@ import { NAV, FOOTER_ABOUT, CONTACT_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTA
         </div>
         <p class="text-[14px] leading-[1.6] text-paper/75 max-w-[420px]">{FOOTER_ABOUT}</p>
         <div class="mt-8 grid grid-cols-2 max-w-[200px] border-2 border-primary">
-          {(['FB','IG'] as const).map((s, i) => (
-            <a href="#" class={`label text-[12px] py-3 text-center text-paper hover:bg-primary hover:text-ink ${i < 1 ? 'border-r-2 border-primary' : ''}`}>{s}</a>
+          {([['FB', SOCIAL.facebook], ['IG', SOCIAL.instagram]] as const).map(([s, href], i) => (
+            <a href={href} target="_blank" rel="noopener" class={`label text-[12px] py-3 text-center text-paper hover:bg-primary hover:text-ink ${i < 1 ? 'border-r-2 border-primary' : ''}`}>{s}</a>
           ))}
         </div>
       </div>

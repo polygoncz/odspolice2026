@@ -5,7 +5,7 @@ Kontext pro AI asistenty pracující na tomto projektu.
 ## Co je to za projekt
 
 Landing page pro kandidátku ODS v komunálních volbách 2026 v Polici nad Metují.
-Volby: 3.–4. října 2026. Volební číslo: 07.
+Volby: 9.–10. října 2026. Volební číslo: 07.
 
 ## Tech stack
 

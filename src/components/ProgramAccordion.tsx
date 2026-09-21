@@ -1,8 +1,29 @@
-import { useState } from 'react';
-import { PROGRAM_ACCORDION } from '../data/content';
+import { useEffect, useState } from 'react';
 
-export default function ProgramAccordion() {
+interface Chapter { n: string; t: string; body: string[]; image: string; }
+
+interface Props {
+  // Data přichází z index.astro. Kdyby island importoval content.ts, přibalil by
+  // metadata všech fotek a Astro by do buildu kopírovalo jejich JPG originály.
+  chapters: Chapter[];
+  intro?: string;
+}
+
+export default function ProgramAccordion({ chapters, intro }: Props) {
   const [open, setOpen] = useState(0);
+
+  // A priority tile links to #program-04 etc. — open that chapter on arrival.
+  useEffect(() => {
+    const sync = () => {
+      const m = window.location.hash.match(/^#program-(\d+)$/);
+      if (!m) return;
+      const i = chapters.findIndex(row => row.n === m[1]);
+      if (i >= 0) setOpen(i);
+    };
+    sync();
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, []);
 
   return (
     <section id="program" className="bg-paper border-b-2 border-ink py-24 relative">
@@ -16,14 +37,14 @@ export default function ProgramAccordion() {
             <span className="label text-[11px] text-secondary">03 / PROGRAM</span>
           </div>
           <h2 className="h-display text-ink" style={{ fontSize: 'clamp(40px, 6vw, 76px)' }}>CELÝ PROGRAM</h2>
-          <p className="mt-5 text-[16px] leading-[1.55] text-ink/75 max-w-[640px]">[Šest kapitol, konkrétní body. Bez vaty.]</p>
+          {intro && <p className="mt-5 text-[16px] leading-[1.55] text-ink/75 max-w-[640px]">{intro}</p>}
         </div>
 
         <div className="mt-14 border-t-4 border-ink">
-          {PROGRAM_ACCORDION.map((row, i) => {
+          {chapters.map((row, i) => {
             const isOpen = open === i;
             return (
-              <div key={i} className="border-b-4 border-ink">
+              <div key={i} id={`program-${row.n}`} className="border-b-4 border-ink scroll-mt-[78px]">
                 <button
                   onClick={() => setOpen(isOpen ? -1 : i)}
                   className={`w-full flex items-center justify-between py-7 text-left transition-colors duration-100 px-3 group ${isOpen ? 'bg-primary' : 'hover:bg-primary'}`}
@@ -40,13 +61,12 @@ export default function ProgramAccordion() {
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="relative bg-paper overflow-hidden">
-                    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-                      <img src={row.bg} alt="" className="absolute inset-0 w-full h-full object-cover"
-                           style={{ filter: 'grayscale(1) sepia(0.6) hue-rotate(180deg) saturate(2.8) brightness(0.95)', opacity: 0.22 }} />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.3) 100%)' }}></div>
+                  <div className="grid lg:grid-cols-12 border-t-2 border-ink">
+                    <div className="lg:col-span-4 relative bg-ink border-b-2 lg:border-b-0 lg:border-r-2 border-ink" style={{ aspectRatio: '16 / 10' }}>
+                      <img src={row.image} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover"
+                           style={{ filter: 'contrast(1.05) saturate(0.95)' }} />
                     </div>
-                    <div className="relative px-3 pt-8 pb-10 grid md:grid-cols-3 gap-6">
+                    <div className="lg:col-span-8 px-3 lg:px-8 pt-8 pb-10 grid md:grid-cols-3 gap-6 content-start">
                       {row.body.map((b, j) => (
                         <div key={j} className="border-l-4 border-primary pl-5">
                           <div className="label text-[10px] text-secondary mb-2">BOD {String(j + 1).padStart(2, '0')}</div>
