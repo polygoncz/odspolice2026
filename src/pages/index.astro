@@ -12,12 +12,13 @@ import Credits from '../components/Credits.astro';
 // import NewsEvents from '../components/NewsEvents.astro';
 // import Footer from '../components/Footer.astro';
 import { getImage } from 'astro:assets';
-import { PROGRAM_ACCORDION, PROGRAM_INTRO } from '../data/content';
+import { PROGRAM_ACCORDION, PROGRAM_INTRO, PRIORITY_CARDS } from '../data/content';
 import '../styles/global.css';
 
 const programChapters = await Promise.all(
   PROGRAM_ACCORDION.map(async ({ n, t, body, bg }) => ({
     n, t, body,
+    alt: PRIORITY_CARDS.find(p => p.n === n)?.alt ?? '',
     image: (await getImage({ src: bg, width: 800, format: 'webp' })).src,
   }))
 );

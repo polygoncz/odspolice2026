@@ -1,9 +1,13 @@
 ---
-import { PHOTO_CREDITS } from '../data/content';
+import { PHOTO_CREDITS, IMPRINT } from '../data/content';
 ---
 <footer class="bg-ink text-paper/60 border-t-2 border-primary">
   <div class="max-w-[1280px] mx-auto px-6 lg:px-10 py-8 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-    <div class="label text-[10px] text-paper/60">© 2026 ODS A NEZÁVISLÍ POLICE</div>
+    <div class="label text-[10px] text-paper/60 leading-[1.9] shrink-0">
+      <div>© 2026 ODS A NEZÁVISLÍ POLICE</div>
+      <div>Zadavatel: <span class="text-paper/85">{IMPRINT.zadavatel}</span></div>
+      <div>Zpracovatel: <span class="text-paper/85">{IMPRINT.zpracovatel}</span></div>
+    </div>
     <p class="text-[12px] leading-[1.6] max-w-[820px]">
       <span class="label text-[10px] text-primary mr-2">FOTOGRAFIE MĚSTA</span>
       Wikimedia Commons, barevně upraveno:

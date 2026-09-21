@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 
 export interface NavItem        { id: string; label: string; }
-export interface PriorityCard   { n: string; t: string; d: string; bg: ImageMetadata; }
+export interface PriorityCard   { n: string; t: string; d: string; bg: ImageMetadata; alt: string; }
 export interface Candidate      { n: number; name: string; bio: string; photo: ImageMetadata; }
 export interface ProgramChapter { n: string; t: string; bg: ImageMetadata; body: string[]; }
 export interface PhotoCredit    { what: string; author: string; license: string; licenseUrl: string; sourceUrl: string; }
@@ -48,17 +48,17 @@ export const PHOTO_CREDITS: PhotoCredit[] = [
 ];
 
 export const PRIORITY_CARDS: PriorityCard[] = [
-  { n:'01', t:'MĚSTSKÝ ÚŘAD A KOMUNIKACE', bg: CHAPTER_BG.urad,
+  { n:'01', t:'MĚSTSKÝ ÚŘAD A KOMUNIKACE', bg: CHAPTER_BG.urad, alt:'Radnice na Masarykově náměstí',
     d:'Dokončíme přeměnu úřadu na moderní a otevřený úřad, který občanům umožní vyřídit většinu služeb online a více je zapojí do rozhodování o budoucnosti města.' },
-  { n:'02', t:'KULTURA, SPOLEČENSKÝ ŽIVOT A VZDĚLÁVÁNÍ', bg: CHAPTER_BG.kultura,
+  { n:'02', t:'KULTURA, SPOLEČENSKÝ ŽIVOT A VZDĚLÁVÁNÍ', bg: CHAPTER_BG.kultura, alt:'Klášter v Polici nad Metují',
     d:'Dále budeme podporovat pestrý kulturní a společenský život, zlepšíme zázemí pro kulturní akce a budeme rozvíjet kvalitní vzdělávání pro děti i mladé lidi.' },
-  { n:'03', t:'INVESTICE DO DOSTUPNÉHO BYDLENÍ, SPORTU A INFRASTRUKTURY', bg: CHAPTER_BG.investice,
+  { n:'03', t:'INVESTICE DO DOSTUPNÉHO BYDLENÍ, SPORTU A INFRASTRUKTURY', bg: CHAPTER_BG.investice, alt:'Pohled na Polici nad Metují od Žďáru',
     d:'Zajistíme realizaci nového dostupného bydlení, zlepšíme stav škol, rozšíříme sportovní zázemí a budeme pokračovat v modernizaci komunikací a veřejné infrastruktury.' },
-  { n:'04', t:'ŽIVOTNÍ PROSTŘEDÍ A ENERGETIKA', bg: CHAPTER_BG.prostredi,
+  { n:'04', t:'ŽIVOTNÍ PROSTŘEDÍ A ENERGETIKA', bg: CHAPTER_BG.prostredi, alt:'Rybník Hony',
     d:'Zavedením energetického managementu snížíme energetickou náročnost města, zlepšíme nakládání s odpady a podpoříme opatření chránící vodu, zeleň a kvalitu veřejného prostoru.' },
-  { n:'05', t:'BEZPEČNOST A OCHRANA OBYVATELSTVA', bg: CHAPTER_BG.bezpecnost,
+  { n:'05', t:'BEZPEČNOST A OCHRANA OBYVATELSTVA', bg: CHAPTER_BG.bezpecnost, alt:'Masarykovo náměstí',
     d:'Posílíme bezpečnost ve městě, doplníme kamerový systém, modernizujeme vybavení městské policie a hasičů a zaměříme se na ochranu veřejného pořádku i majetku.' },
-  { n:'06', t:'SOCIÁLNÍ PÉČE A ZDRAVOTNICTVÍ', bg: CHAPTER_BG.socialni,
+  { n:'06', t:'SOCIÁLNÍ PÉČE A ZDRAVOTNICTVÍ', bg: CHAPTER_BG.socialni, alt:'Domov seniorů v Polici nad Metují',
     d:'Rozšíříme nabídku sociálních služeb a podpoříme seniory i občany, kteří potřebují pomoc nebo dostupné bydlení. Nadále budeme usilovat o zajištění dostupné zdravotní péče.' },
 ];
 
@@ -181,6 +181,24 @@ export const VISION_CARDS: VisionCard[] = [
   { t:'MĚSTO PRO ŽIVOT',      d:'Budeme dál investovat do bydlení, školství, sportu, kultury i veřejného prostoru tak, aby Police byla dobrým místem pro život všech generací.' },
   { t:'ODPOVĚDNÝ ROZVOJ',     d:'Budeme pokračovat v projektech energetických úspor, komunitní energetiky a opatřeních, která pomohou městu zvládat budoucí výzvy.' },
 ];
+
+// ─── Metadata (vyhledávače, sdílení na sociálních sítích) ───────────────────
+// Na webu píšeme „Police", ale lidé vyhledávají „Police nad Metují" — proto
+// plný název v popisu a klíčových slovech.
+export const SEO = {
+  title:       'ODS Police 2026',
+  description: 'ODS a nezávislí pro komunální volby 9. a 10. října 2026 v Polici nad Metují. 17 kandidátů v čele se starostou Jiřím Škopem a program pro další rozvoj města.',
+  keywords:    'ODS, ODS a nezávislí, Police nad Metují, Velká Ledhuje, komunální volby 2026, volby do zastupitelstva, kandidátka, volební program, Jiří Škop',
+  ogImage:     '/og.jpg',
+  ogImageAlt:  'Kandidáti ODS a nezávislí Police u kašny na náměstí',
+  themeColor:  '#39D4D8',
+} as const;
+
+// Povinné označení volebního materiálu (kdo ho objednal a kdo zpracoval).
+export const IMPRINT = {
+  zadavatel:   'MS ODS Police n. Metují',
+  zpracovatel: 'Ing. Pavel Lokvenc',
+} as const;
 
 export const SOCIAL = {
   facebook:  'https://www.facebook.com/profile.php?id=61591251286988',

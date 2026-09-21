@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface Chapter { n: string; t: string; body: string[]; image: string; }
+interface Chapter { n: string; t: string; body: string[]; image: string; alt: string; }
 
 interface Props {
   // Data přichází z index.astro. Kdyby island importoval content.ts, přibalil by
@@ -63,7 +63,7 @@ export default function ProgramAccordion({ chapters, intro }: Props) {
                 {isOpen && (
                   <div className="grid lg:grid-cols-12 border-t-2 border-ink">
                     <div className="lg:col-span-4 relative bg-ink border-b-2 lg:border-b-0 lg:border-r-2 border-ink" style={{ aspectRatio: '16 / 10' }}>
-                      <img src={row.image} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover"
+                      <img src={row.image} alt={row.alt} loading="lazy" className="absolute inset-0 w-full h-full object-cover"
                            style={{ filter: 'contrast(1.05) saturate(0.95)' }} />
                     </div>
                     <div className="lg:col-span-8 px-3 lg:px-8 pt-8 pb-10 grid md:grid-cols-3 gap-6 content-start">

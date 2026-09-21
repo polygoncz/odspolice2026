@@ -1,6 +1,21 @@
 ---
-export interface Props { title?: string; }
-const { title = 'ODS Police 2026 — Landing' } = Astro.props;
+import { SEO, SOCIAL } from '../data/content';
+
+export interface Props { title?: string; description?: string; }
+const { title = SEO.title, description = SEO.description } = Astro.props;
+
+// Absolutní URL (Facebook je pro náhled vyžaduje) jen když je v astro.config.mjs nastaveno `site`.
+const site      = Astro.site;
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const ogImage   = site ? new URL(SEO.ogImage, site).href : SEO.ogImage;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ODS a nezávislí Police',
+  ...(site && { url: site.href, logo: new URL('/apple-touch-icon.png', site).href }),
+  sameAs: [SOCIAL.facebook, SOCIAL.instagram],
+};
 ---
 <!doctype html>
 <html lang="cs">
@@ -8,7 +23,27 @@ const { title = 'ODS Police 2026 — Landing' } = Astro.props;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content={SEO.keywords} />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content={SEO.themeColor} />
+  {canonical && <link rel="canonical" href={canonical} />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:site_name" content={SEO.title} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={SEO.ogImageAlt} />
+  {canonical && <meta property="og:url" content={canonical} />}
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
