@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 
 export interface NavItem        { id: string; label: string; }
 export interface PriorityCard   { n: string; t: string; d: string; bg: ImageMetadata; alt: string; }
-export interface Candidate      { n: number; name: string; bio: string; photo: ImageMetadata; }
+export interface Candidate      { n: number; name: string; bio: string; photo: ImageMetadata; withdrawn?: boolean; }
 export interface ProgramChapter { n: string; t: string; bg: ImageMetadata; body: string[]; }
 export interface PhotoCredit    { what: string; author: string; license: string; licenseUrl: string; sourceUrl: string; }
 export interface NewsItem       { date: string; tag: string; t: string; }
@@ -98,7 +98,8 @@ export const PROGRAM_ACCORDION: ProgramChapter[] = [
 // ─── Kandidátka ─────────────────────────────────────────────────────────────
 
 import _01 from '../assets/kandidati/01.jpg';
-import _02 from '../assets/kandidati/02.jpg';
+// Kandidátka č. 2 odstoupila — fotka je rozmazaná už v souboru, ostrý originál se na web nedostane.
+import _02 from '../assets/kandidati/02-odstoupila.jpg';
 import _03 from '../assets/kandidati/03.jpg';
 import _04 from '../assets/kandidati/04.jpg';
 import _05 from '../assets/kandidati/05.jpg';
@@ -118,7 +119,7 @@ import _17 from '../assets/kandidati/17.jpg';
 // Pořadí a profese podle kandidátní listiny podané pro volby 9.–10. 10. 2026.
 export const CANDIDATES: Candidate[] = [
   { n:1,  name:'Mgr. Jiří Škop',           bio:'starosta',                                        photo:_01 },
-  { n:2,  name:'Mgr. Martina Frydrychová', bio:'kurátorka galerie / PR manažerka',                photo:_02 },
+  { n:2,  name:'Odstoupila',               bio:'Kandidátka se na vlastní žádost rozhodla odstoupit.', photo:_02, withdrawn:true },
   { n:3,  name:'Mgr. Jaroslav Souček',     bio:'místostarosta / manažer vzdělávání',              photo:_03 },
   { n:4,  name:'Jan Antl',                 bio:'ředitel pobočky',                                 photo:_04 },
   { n:5,  name:'Ing. Jiří Vlček',          bio:'výrobní ředitel',                                 photo:_05 },

@@ -19,7 +19,7 @@ const programChapters = await Promise.all(
   PROGRAM_ACCORDION.map(async ({ n, t, body, bg }) => ({
     n, t, body,
     alt: PRIORITY_CARDS.find(p => p.n === n)?.alt ?? '',
-    image: (await getImage({ src: bg, width: 800, format: 'webp' })).src,
+    image: (await getImage({ src: bg, width: 800, quality: 65, format: 'webp' })).src,
   }))
 );
 ---

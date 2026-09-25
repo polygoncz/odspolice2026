@@ -20,7 +20,7 @@ import { PRIORITY_CARDS, PRIORITIES_INTRO } from '../data/content';
           <div class="absolute bg-ink" style="inset:0;transform:translate(10px,10px)"></div>
           <div class="relative h-full bg-paper border-2 border-ink flex flex-col overflow-hidden">
             <div class="relative bg-ink border-b-2 border-ink overflow-hidden" style="aspect-ratio:16/10">
-              <Image src={p.bg} alt={p.alt} widths={[480, 720, 960]} sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+              <Image src={p.bg} alt={p.alt} widths={[400, 600, 800]} quality={65} sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
                    class="absolute inset-0 w-full h-full object-cover" style="filter:contrast(1.05) saturate(0.95)" />
               <div class="absolute top-0 left-0 bg-primary text-ink px-3 py-2 border-r-2 border-b-2 border-ink">
                 <span class="h-display text-[36px] leading-none">{p.n}</span>
